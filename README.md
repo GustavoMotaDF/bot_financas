@@ -38,7 +38,11 @@ docker run --env-file .env gustavomota/bot_financas:0.0.0.1'
 ```
 
 ### 📄 Local
-Baixe o projeto. <br>
+Baixe o projeto:
+```
+git clone https://github.com/GustavoMotaDF/bot_financas.git
+```
+
 Para baixar as dependencias execute: 
 ``` 
 go run tidy 
