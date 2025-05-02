@@ -1,0 +1,6 @@
+telegram/.vscode/
+telegram/.gitignore
+telegram/.dockerignore
+telegram/.env
+telegram/setup.sh
+telegram/banco.db
