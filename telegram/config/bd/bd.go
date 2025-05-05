@@ -4,7 +4,7 @@ import (
 	"log"
 	"telegram/models"
 
-	"gorm.io/driver/sqlite"
+	"github.com/glebarez/sqlite"
 	"gorm.io/gorm"
 )
 
@@ -14,7 +14,7 @@ var DB *gorm.DB
 func ConnectDB() (*gorm.DB, error) {
 	// Abrindo a conexão com o banco de dados SQLite
 	var err error
-	DB, err = gorm.Open(sqlite.Open("banco.db"), &gorm.Config{})
+	DB, err = gorm.Open(sqlite.Open("config/banco.db"), &gorm.Config{})
 	if err != nil {
 		panic("Erro ao conectar ao banco: " + err.Error())
 	}
