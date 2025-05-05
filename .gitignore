@@ -4,3 +4,4 @@ telegram/.dockerignore
 telegram/.env
 telegram/setup.sh
 telegram/banco.db
+telegram/config/banco.db
