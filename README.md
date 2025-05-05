@@ -29,13 +29,14 @@ Para uso via docker, pode-se usar a imagem (arm64 e amd64) gustavomota/bot_finan
 
 #### Arquivo .env
 Crie um arquivo .env para guardar as variaveis de ambiente necessárias:
-- TELEGRAM_USER_IDS="xxxxxx,xxxxxxx,xxxxxx"
-- API_KEY="xxxxxxxxxxxxxxxx"
+- TELEGRAM_USER_IDS=xxxxxx,xxxxxxx,xxxxxx
+- API_KEY=xxxxxxxxxxxxxxxx
 
 Apos isso, rode:
 ``` 
-docker run --env-file .env gustavomota/bot_financas:0.0.0.1' 
+docker run --env-file .env -v /path/to/bd:/app/config gustavomota/bot_financas:0.0.0.1' 
 ```
+O volume é obrigatório para iniciar o container e persistir os dados via sqlite.
 
 ### 📄 Local
 Baixe o projeto:
@@ -46,6 +47,10 @@ git clone https://github.com/GustavoMotaDF/bot_financas.git
 Para baixar as dependencias execute: 
 ``` 
 go run tidy 
+```
+ou
+```
+go mod tidy
 ```
 Exporte as variavies de ambiente necessárias:
 ``` 
