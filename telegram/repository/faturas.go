@@ -56,3 +56,14 @@ func DeleteFatura(fatura *int64) error {
 		Where("user_id IN ?", config.AppConfig.UserID).
 		Where("id = ?", *fatura).Update("deleted_at", time.Now()).Error
 }
+
+func GetFaturasVencidasNoMesNaoPagas() (*[]models.Fatura, error) {
+	var faturas []models.Fatura
+	err := bd.DB.Model(&faturas).
+		Where("strftime('%Y-%m-%d', vencimento) >= strftime('%Y-%m', 'now') || '-01'").
+		Where("strftime('%Y-%m-%d', vencimento) <= strftime('%Y-%m-%d', 'now')").
+		Where("paga = ?", false).
+		Find(&faturas).Error
+
+	return &faturas, err
+}
