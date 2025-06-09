@@ -26,7 +26,11 @@ func Inserirfatura(bot *tgbotapi.BotAPI, userID *int64, chatID *int64, text stri
 		valorStr := text
 		valorStr = strings.Replace(valorStr, ",", ".", 1)
 		valorFloat, _ := strconv.ParseFloat(valorStr, 64)
-
+		if valorFloat < 0 {
+			bot.Send(tgbotapi.NewMessage(*chatID, "Valor não pode ser negativo!"))
+			bot.Send(tgbotapi.NewMessage(*chatID, "Digite o valor da fatura (ex: 123.45):"))
+			return
+		}
 		sessaoAtual.Fatura.Valor = valorFloat
 		sessaoAtual.EtapaAtual = models.EtapaDescricao
 		bot.Send(tgbotapi.NewMessage(*chatID, "Digite a descrição da fatura:"))
@@ -41,7 +45,10 @@ func Inserirfatura(bot *tgbotapi.BotAPI, userID *int64, chatID *int64, text stri
 			bot.Send(tgbotapi.NewMessage(*chatID, "Data inválida. Use o formato DD/MM/AAAA."))
 			return
 		}
-
+		if vencimento.Before(time.Now()) {
+			bot.Send(tgbotapi.NewMessage(*chatID, "A data informada deve ser igual ou maior a atual!"))
+			return
+		}
 		sessaoAtual.Fatura.Vencimento = vencimento
 		sessaoAtual.Fatura.UserID = *userID
 
