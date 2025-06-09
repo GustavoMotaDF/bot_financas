@@ -25,7 +25,7 @@ Este projeto é um bot de controle de contas a pagar pessoal desenvolvido em Go,
 
 ### 📄 Docker
 
-Para uso via docker, pode-se usar a imagem (arm64 e amd64) gustavomota/bot_financas:0.0.0.1
+Para uso via docker, pode-se usar a imagem (arm64 e amd64) gustavomota/bot_financas:0.0.1.0
 
 #### Arquivo .env
 Crie um arquivo .env para guardar as variaveis de ambiente necessárias:
@@ -62,3 +62,10 @@ E para executar:
 ```
 go run main.go
 ```
+
+## Change Log
+### 0.0.0.1 - alpha
+Projeto base com as principais funcionalidades do mvp.
+### 0.0.1.0 - Ajuste na validação da inserção de fatura
+- 1) Validando valor negativo, impedindo inserir fatura com valo negativo
+- 2) Validando datas, impedindo inserir fatura retroativa
