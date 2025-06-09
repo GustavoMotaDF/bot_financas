@@ -67,5 +67,5 @@ go run main.go
 ### 0.0.0.1 - alpha
 Projeto base com as principais funcionalidades do mvp.
 ### 0.0.1.0 - Ajuste na validação da inserção de fatura
-- 1) Validando valor negativo, impedindo inserir fatura com valo negativo
+- 1) Validando valor negativo, impedindo inserir fatura com valor negativo
 - 2) Validando datas, impedindo inserir fatura retroativa
