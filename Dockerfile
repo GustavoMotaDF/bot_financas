@@ -1,13 +1,15 @@
-FROM golang:1.23 AS builder
+# Etapa de build
+FROM golang:alpine AS builder
 
 WORKDIR /app
 COPY telegram/ /app
-RUN go mod tidy
-RUN go build -o app
+RUN go mod tidy && go clean -modcache
+RUN go build -ldflags="-s -w" -o app
 
-FROM debian:bookworm-slim
+# Imagem final minimalista
+FROM alpine:latest
 
-RUN apt-get update && apt-get install -y ca-certificates && rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache ca-certificates
 WORKDIR /app
 COPY --from=builder /app/app .
 CMD ["./app"]
