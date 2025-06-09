@@ -34,7 +34,7 @@ Crie um arquivo .env para guardar as variaveis de ambiente necessárias:
 
 Apos isso, rode:
 ``` 
-docker run --env-file .env -v /path/to/bd:/app/config gustavomota/bot_financas:0.0.0.1' 
+docker run --env-file .env -v /path/to/bd:/app/config gustavomota/bot_financas:0.0.1.0' 
 ```
 O volume é obrigatório para iniciar o container e persistir os dados via sqlite.
 
