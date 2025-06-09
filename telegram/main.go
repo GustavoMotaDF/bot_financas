@@ -5,6 +5,7 @@ import (
 	"telegram/config"
 	"telegram/config/auth"
 	"telegram/config/bd"
+	"telegram/funcionalidades/notificacao"
 	"telegram/handlers"
 	"telegram/models"
 	"telegram/sessao"
@@ -32,19 +33,24 @@ func main() {
 	u.Timeout = 60
 
 	updates := bot.GetUpdatesChan(u)
-
-	for update := range updates {
-		userID := handlers.ExtrairUserID(&update)
-		chatID := handlers.ExtrairChatID(&update)
-		sessao.CriarSessao(userID, models.TipoBasica)
-		if auth.VerificaPermissao(userID) {
-			msg := handlers.ExtrairMensagem(&update)
-			msgID := handlers.ExtrairMensagemID(&update)
-			handlers.Start(bot, &update, userID, chatID, msg, msgID)
-		} else {
-			bot.Send(tgbotapi.NewMessage(*chatID, " ⛔ Este é um bot privado! ⛔"))
+	go func() {
+		notificacao.NotificaFaturaAvencerDoDia(bot)
+	}()
+	go func() {
+		for update := range updates {
+			userID := handlers.ExtrairUserID(&update)
+			chatID := handlers.ExtrairChatID(&update)
+			sessao.CriarSessao(userID, models.TipoBasica)
+			if auth.VerificaPermissao(userID) {
+				msg := handlers.ExtrairMensagem(&update)
+				msgID := handlers.ExtrairMensagemID(&update)
+				handlers.Start(bot, &update, userID, chatID, msg, msgID)
+			} else {
+				bot.Send(tgbotapi.NewMessage(*chatID, " ⛔ Este é um bot privado! ⛔"))
+			}
+			sessao.RemoveSessao(userID, models.TipoBasica)
 		}
-		sessao.RemoveSessao(userID, models.TipoBasica)
-		continue
-	}
+	}()
+	select {}
+
 }
