@@ -71,5 +71,5 @@ Projeto base com as principais funcionalidades do mvp.
 - 2) Validando datas, impedindo inserir fatura retroativa.
 ### 0.0.2.0 - Ajuste de validação de datas, ao inserir fatura
 - 1) BUG - Ajuste na validação de datas, até então não era possivel inserir fatura com data atual.
-### 0.1.0.0 - Criação de rotina para notificar usuários sobre faturas a vencerem
-- 1) Adicionando rotina para notificar os usuários listados na variavel de ambiente TELEGRAM_USER_IDS, sobre as faturas a vencerem no dia em questão.
+### 0.1.0.0 - Criação de rotina para notificar usuários sobre faturas a vencer
+- 1) Adicionando rotina para notificar os usuários listados na variavel de ambiente TELEGRAM_USER_IDS, sobre faturas a vencer no dia em questão.

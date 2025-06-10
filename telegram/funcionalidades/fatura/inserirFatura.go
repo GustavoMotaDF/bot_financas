@@ -45,7 +45,8 @@ func Inserirfatura(bot *tgbotapi.BotAPI, userID *int64, chatID *int64, text stri
 			bot.Send(tgbotapi.NewMessage(*chatID, "Data inválida. Use o formato DD/MM/AAAA."))
 			return
 		}
-		if vencimento.Before(time.Now()) {
+		hoje := time.Now().Truncate(24 * time.Hour)
+		if vencimento.Before(hoje) {
 			bot.Send(tgbotapi.NewMessage(*chatID, "A data informada deve ser igual ou maior a atual!"))
 			return
 		}
