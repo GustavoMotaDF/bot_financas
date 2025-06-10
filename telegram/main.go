@@ -33,9 +33,7 @@ func main() {
 	u.Timeout = 60
 
 	updates := bot.GetUpdatesChan(u)
-	go func() {
-		notificacao.NotificaFaturaAvencerDoDia(bot)
-	}()
+
 	go func() {
 		for update := range updates {
 			userID := handlers.ExtrairUserID(&update)
@@ -50,6 +48,9 @@ func main() {
 			}
 			sessao.RemoveSessao(userID, models.TipoBasica)
 		}
+	}()
+	go func() {
+		notificacao.NotificaFaturaAvencerDoDia(bot)
 	}()
 	select {}
 

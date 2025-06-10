@@ -2,6 +2,7 @@ package notificacao
 
 import (
 	"fmt"
+	"telegram/config"
 	"telegram/funcionalidades/fatura"
 	"telegram/models"
 	"telegram/repository"
@@ -11,7 +12,6 @@ import (
 )
 
 func NotificaFaturaAvencerDoDia(bot *tgbotapi.BotAPI) {
-	var chatid = int64(552380571)
 	c := cron.New()
 	// Agendando execução diária às 12:00
 	c.AddFunc("*/1 * * * *", func() {
@@ -20,12 +20,21 @@ func NotificaFaturaAvencerDoDia(bot *tgbotapi.BotAPI) {
 		if err != nil {
 			fmt.Println(err)
 		}
-		bot.Send(tgbotapi.NewMessage(chatid, "‼️ ROTNA DE NOTIFICAÇÃO! ‼️"))
-		bot.Send(tgbotapi.NewMessage(chatid, "Faturas com vencimento no dia de hoje ou vencidas!!"))
-		for _, item := range *faturas {
+		if faturas == nil {
+			fmt.Println("Notificando usuários")
+			//notificando todos os usuários informados na variavel de ambiente TELEGRAM_USER_IDS
+			for _, id := range config.AppConfig.UserID {
 
-			var id = int64(item.ID)
-			fatura.BotoesFatura(bot, &chatid, id, models.ModelaFatura(&item), false)
+				bot.Send(tgbotapi.NewMessage(id, "‼️ ROTNA DE NOTIFICAÇÃO! ‼️"))
+				bot.Send(tgbotapi.NewMessage(id, "Faturas com vencimento no dia de hoje ou vencidas!!"))
+				for _, item := range *faturas {
+
+					var id = int64(item.ID)
+					fatura.BotoesFatura(bot, &id, id, models.ModelaFatura(&item), false)
+				}
+			}
+		} else {
+			fmt.Println("Sem faturas para notificar")
 		}
 	})
 
