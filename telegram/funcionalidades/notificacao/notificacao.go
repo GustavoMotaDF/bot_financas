@@ -13,8 +13,7 @@ import (
 
 func NotificaFaturaAvencerDoDia(bot *tgbotapi.BotAPI) {
 	c := cron.New()
-	// Agendando execução diária às 12:00
-	c.AddFunc("*/1 * * * *", func() {
+	c.AddFunc("0 12 * * *", func() {
 		fmt.Println("Executando rotina")
 		faturas, err := repository.GetFaturasVencidasNoMesNaoPagas()
 		if err != nil {
