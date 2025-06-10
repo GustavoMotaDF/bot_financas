@@ -69,3 +69,5 @@ Projeto base com as principais funcionalidades do mvp.
 ### 0.0.1.0 - Ajuste na validação da inserção de fatura
 - 1) Validando valor negativo, impedindo inserir fatura com valor negativo
 - 2) Validando datas, impedindo inserir fatura retroativa
+### 0.0.2.0 - Ajuste de validação de datas, ao inserir fatura
+- 1) BUG - Ajuste na validação de datas, até então não era possivel inserir fatura com data atual.
