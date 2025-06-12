@@ -57,7 +57,7 @@ func DeleteFatura(fatura *int64) error {
 		Where("id = ?", *fatura).Update("deleted_at", time.Now()).Error
 }
 
-func GetFaturasVencidasNoMesNaoPagas() (*[]models.Fatura, error) {
+func GetFaturasVencidasNoMesNaoPagas() ([]models.Fatura, error) {
 	var faturas []models.Fatura
 	err := bd.DB.Model(&faturas).
 		Where("strftime('%Y-%m-%d', vencimento) >= strftime('%Y-%m', 'now') || '-01'").
@@ -65,5 +65,5 @@ func GetFaturasVencidasNoMesNaoPagas() (*[]models.Fatura, error) {
 		Where("paga = ?", false).
 		Find(&faturas).Error
 
-	return &faturas, err
+	return faturas, err
 }

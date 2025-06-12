@@ -25,7 +25,7 @@ Este projeto é um bot de controle de contas a pagar pessoal desenvolvido em Go,
 
 ### 📄 Docker
 
-Para uso via docker, pode-se usar a imagem (arm64 e amd64) gustavomota/bot_financas:0.1.0.0
+Para uso via docker, pode-se usar a imagem (arm64 e amd64) gustavomota/bot_financas:0.1.1.0
 
 #### Arquivo .env
 Crie um arquivo .env para guardar as variaveis de ambiente necessárias:
@@ -34,7 +34,7 @@ Crie um arquivo .env para guardar as variaveis de ambiente necessárias:
 
 Apos isso, rode:
 ``` 
-docker run --env-file .env -v /path/to/bd:/app/config gustavomota/bot_financas:0.1.0.0' 
+docker run --env-file .env -v /path/to/bd:/app/config gustavomota/bot_financas:0.1.1.0' 
 ```
 O volume é obrigatório para iniciar o container e persistir os dados via sqlite.
 
@@ -73,3 +73,5 @@ Projeto base com as principais funcionalidades do mvp.
 - 1) BUG - Ajuste na validação de datas, até então não era possivel inserir fatura com data atual.
 ### 0.1.0.0 - Criação de rotina para notificar usuários sobre faturas a vencer
 - 1) Adicionando rotina para notificar os usuários listados na variavel de ambiente TELEGRAM_USER_IDS, sobre faturas a vencer no dia em questão.
+### 0.1.1.0 - Correção de bug na rotina de notificação
+- 1) A rotina não estava notificando corretamente as faturas a vencer, foi corrigido a forma de validação para notificação.
